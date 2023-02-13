@@ -7,3 +7,4 @@ First 10 lines
 first three lines
 creat file named a cunfsuing name
 write outpot into file
+delete all js files
