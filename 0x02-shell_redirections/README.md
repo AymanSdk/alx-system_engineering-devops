@@ -4,3 +4,4 @@ Print content of passwd file
 Display two files contnet
 Last 10 lines
 First 10 lines
+first three lines
