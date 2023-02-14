@@ -9,3 +9,4 @@ create local variable
 Create Global variable
 Print data Stored on the the Variable
 print result of POWER divided By DIVIDE
+BREATH AND LOVE result
