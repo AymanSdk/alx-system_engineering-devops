@@ -1,1 +1,1 @@
-#!/usr/bin/env ruby
+# We Said NONE EMPTY README
