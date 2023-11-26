@@ -1,4 +1,4 @@
-# Web Infrastructure Design 
+# Web Infrastructure Design
 
 <img title="a title" alt="Alt text" src="imgs/1000_F_162994956_Uj1fwtBsznrQVbB1E4K2Q9ny6aErRkUl.jpg">
 
@@ -14,8 +14,6 @@ This repository contains documentation and design principles for the web infrast
 4. [Deployment](#deployment)
 5. [Security](#security)
 6. [Monitoring and Scaling](#monitoring-and-scaling)
-7. [Contributing](#contributing)
-8. [License](#license)
 
 ---
 
