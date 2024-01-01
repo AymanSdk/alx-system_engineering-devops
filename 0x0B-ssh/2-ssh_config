@@ -1,0 +1,10 @@
+# ssh_config
+
+Host *
+    PasswordAuthentication no
+    IdentityFile ~/.ssh/school
+    SendEnv LANG LC_*
+    HashKnownHosts yes
+    GSSAPIAuthentication yes
+    HostName TinyShit
+    User ubuntu
