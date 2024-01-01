@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # Connect to the server using the private key
 
-ssh -i ~/.ssh/id_rsa.pub ubuntu@TinyShit
+ssh -i ~/.ssh/school ubuntu@TinyShit
 
