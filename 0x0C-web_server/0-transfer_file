@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # This script is used to transfer files from local to remote server
 
 if [ "$#" -lt 3 ]; then
