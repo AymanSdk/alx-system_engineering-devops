@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Block all incoming traffic but allow established connections, loopback, and ICMP
+
+sed -i 's/IPV6=yes/IPV6=no/g' /etc/default/ufw
+ufw disable
+ufw enable
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 22/tcp
+ufw allow 80/tcp
+ufw allow 443/tcp
