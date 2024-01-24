@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# This script will install nginx and configure it to run on port 8080
-sudo chmod 0644 /etc/nginx/nginx.conf pkill -f apache2
-sudo sed -i "s/#user www-data;/user nginx;/" /etc/nginx/nginx.conf
-sudo sed -i "s/80 default_server/8080 default_server/" /etc/nginx/sites-enabled/default
-sudo -u nginx service nginx restart
+# makes nginx run as user nginx and change port to 8080
+sudo sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
+sudo sed -i 's/80/8080/g' /etc/nginx/sites-enabled/default
+chmod 644 /etc/nginx/nginx.conf
+pkill apache2
+sudo -u nginx service nginx start
