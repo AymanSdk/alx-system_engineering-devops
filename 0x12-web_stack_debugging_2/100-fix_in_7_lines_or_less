@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-[ $# -ne 1 ] && echo "Usage: $0 <username>" && exit 1
+if [ $# -ne 1 ]
+then
+  echo "Usage: $0 <username>"
+  exit 1
+fi
 sudo -u "$1" whoami
