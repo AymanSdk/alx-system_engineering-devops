@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-if [ $# -ne 1 ]
-then
-  echo "Usage: $0 <username>"
-  exit 1
-fi
-sudo -u "$1" whoami
+# web debugging
+sudo chmod 0644 /etc/nginx/nginx.conf pkill -f apache2
+sudo sed -i "s/#user www-data;/user nginx;/" /etc/nginx/nginx.conf
+sudo sed -i "s/80 default_server/8080 default_server/" /etc/nginx/sites-enabled/default
+sudo -u nginx service nginx restart
