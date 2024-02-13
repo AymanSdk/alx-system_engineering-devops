@@ -1,20 +1,37 @@
 #!/usr/bin/python3
-# get subs
-from requests import get
-from sys import argv
+""" Top ten """
 
 
 def top_ten(subreddit):
-    """subs"""
-    head = {'User-Agent': 'Psychological-Papi'}
+    """
+    Prints the titles of the first 10 hot posts listed for a given subreddit
+    """
+    from requests import get
+
+    url = "https://www.reddit.com/r/{}/hot/.json?limit=10".format(subreddit)
+
+    headers = {'user-agent': 'my-app/0.0.1'}
+
+    r = get(url, headers=headers, allow_redirects=False)
+
+    if r.status_code != 200:
+        print(None)
+        return None
+
     try:
-        count = get('https://www.reddit.com/r/{}/hot.json?count=10'.format(
-            subreddit), headers=head).json().get('data').get('children')
-        print('\n'.join([dic.get('data').get('title')
-                         for dic in count][:10]))
-    except Exception as e:
-        print('None')
+        js = r.json()
 
+    except ValueError:
+        print(None)
+        return None
 
-if __name__ == "__main__":
-    top_ten(argv[1])
+    try:
+
+        data = js.get("data")
+        children = data.get("children")
+        for child in children[:10]:
+            post = child.get("data")
+            print(post.get("title"))
+
+    except:
+        print(None)
