@@ -1,27 +1,48 @@
 #!/usr/bin/python3
-# get subs
+""" Recurse it! """
 from requests import get
-from sys import argv
+
+REDDIT = "https://www.reddit.com/"
+HEADERS = {'user-agent': 'my-app/0.0.1'}
 
 
-def recurse(subreddit, hotlist=[], after=None):
-    """subs"""
-    head = {'User-Agent': 'Psychological-Papi'}
-    try:
-        if after:
-            count = get('https://www.reddit.com/r/{}/hot.json?after={}'.format(
-                subreddit, after), headers=head).json().get('data')
-        else:
-            count = get('https://www.reddit.com/r/{}/hot.json'.format(
-                subreddit), headers=head).json().get('data')
-        hotlist += [dic.get('data').get('title')
-                    for dic in count.get('children')]
-        if count.get('after'):
-            return recurse(subreddit, hotlist, after=count.get('after'))
-        return hotlist
-    except Exception as e:
+def recurse(subreddit, hot_list=[], after=""):
+    """
+    Returns a list containing the titles of all hot articles for a given
+    subreddit. If no results are found for the given subreddit, the function
+    should return None.
+    """
+    if after is None:
+        return hot_list
+
+    url = REDDIT + "r/{}/hot/.json".format(subreddit)
+
+    params = {
+        'limit': 100,
+        'after': after
+    }
+
+    r = get(url, headers=HEADERS, params=params, allow_redirects=False)
+
+    if r.status_code != 200:
         return None
 
+    try:
+        js = r.json()
 
-if __name__ == "__main__":
-    recurse(argv[1])
+    except ValueError:
+        return None
+
+    try:
+
+        data = js.get("data")
+        after = data.get("after")
+        children = data.get("children")
+        for child in children:
+            post = child.get("data")
+            hot_list.append(post.get("title"))
+
+    except Exception:
+        return None
+
+    return recurse(subreddit, hot_list, after)
