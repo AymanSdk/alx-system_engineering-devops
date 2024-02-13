@@ -1,19 +1,31 @@
 #!/usr/bin/python3
-"""get number of subscribers for a given subreddit"""
-from requests import get
-from sys import argv
+""" How many subscribers for a given subreddit """
 
 
 def number_of_subscribers(subreddit):
-    """get number of subscribers for a given subreddit"""
-    head = {'User-Agent': 'Psychological-Papi'}
-    count = get('https://www.reddit.com/r/{}/about.json'.format(
-        subreddit), headers=head).json()
-    try:
-        return count.get('data').get('subscribers')
-    except AttributeError:
+    """ Returns subscriber count of subreddit or 0 """
+    from requests import get
+
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+
+    headers = {'user-agent': 'psychological-papi'}
+
+    r = get(url, headers=headers, allow_redirects=False)
+
+    if r.status_code != 200:
         return 0
 
+    try:
+        js = r.json()
 
-if __name__ == '__main__':
-    number_of_subscribers(argv[1])
+    except ValueError:
+        return 0
+
+    data = js.get("data")
+
+    if data:
+        sub_count = data.get("subscribers")
+        if sub_count:
+            return sub_count
+
+    return 0
