@@ -12,7 +12,7 @@ def top_ten(subreddit):
             subreddit), headers=head).json().get('data').get('children')
         print('\n'.join([dic.get('data').get('title')
                          for dic in count][:10]))
-    except:
+    except Exception as e:
         print('None')
 
 
