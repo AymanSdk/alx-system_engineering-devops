@@ -33,5 +33,5 @@ def top_ten(subreddit):
             post = child.get("data")
             print(post.get("title"))
 
-    except:
+    except Exception:
         print(None)
