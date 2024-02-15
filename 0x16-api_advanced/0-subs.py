@@ -1,31 +1,15 @@
 #!/usr/bin/python3
-""" How many subscribers for a given subreddit """
+""" Get how many subscribers """
+import requests
 
 
 def number_of_subscribers(subreddit):
-    """ Returns subscriber count of subreddit or 0 """
-    from requests import get
+    """ get how many subscribers """
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    response = requests.get(url, headers={})
 
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-
-    headers = {'user-agent': 'my-app/0.0.1'}
-
-    r = get(url, headers=headers, allow_redirects=False)
-
-    if r.status_code != 200:
+    if response.status_code == 200:
+        data = response.json()
+        return data['data']['subscribers']
+    else:
         return 0
-
-    try:
-        js = r.json()
-
-    except ValueError:
-        return 0
-
-    data = js.get("data")
-
-    if data:
-        sub_count = data.get("subscribers")
-        if sub_count:
-            return sub_count
-
-    return 0
